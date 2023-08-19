@@ -10,6 +10,7 @@ import LogoDark from '../../public/images/logo/logo_dark.png';
 import ButtonAuthenMobile from './buttonAuthenMobile';
 import routers from '../../routers/routers';
 import { useAppContext } from '../../helpers';
+import { Button } from '@mui/material';
 
 const Header = () => {
 	const { state } = useAppContext();
@@ -49,12 +50,14 @@ const Header = () => {
 			<header
 				className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent ${
 					sticky
-						? '!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-50'
+						? '!fixed !z-[9999] !bg-primary shadow-sticky !transition'
 						: 'absolute'
 				}`}
 			>
-				<div className="container">
-					<div className="relative -mx-4 flex items-center justify-between">
+				<div className={`${navbarOpen ? 'w-full' : 'container'}`}>
+					<div
+						className={`relative -mx-4 flex items-center justify-between`}
+					>
 						<div className="w-60 max-w-full px-4 xl:mr-12">
 							<Link
 								href="/"
@@ -108,12 +111,44 @@ const Header = () => {
 								</button>
 								<nav
 									id="navbarCollapse"
-									className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white py-4 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+									className={`navbar overflow-auto lg:overflow-visible absolute right-0 z-30 bottom-0 left-0 top-0 h-[100vh] lg:h-auto rounded border-[.5px] border-body-color/50 py-4 px-10 duration-300 dark:border-body-color/20 bg-white lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
 										navbarOpen
-											? 'visibility top-full opacity-100'
-											: 'invisible top-[120%] opacity-0'
+											? 'visibility top-0 opacity-100'
+											: 'invisible top-0 opacity-0'
 									}`}
 								>
+									<div className="flex items-start lg:hidden justify-between h-[15vh]">
+										<Image
+											src={LogoDark}
+											alt="logo"
+											width={150}
+											height={100}
+											className="hidden dark:block"
+										/>
+										<div
+											className="text-[#b3b3c7] cursor-pointer"
+											onClick={navbarToggleHandler}
+										>
+											<i className="fa-solid fa-xmark text-[30px]"></i>
+										</div>
+									</div>
+									<div className="flex lg:hidden gap-2 items-center justify-between mb-4 mt-6">
+										<div className="flex-1 flex items-center gap-2">
+											<Image
+												src={LogoDark}
+												alt="logo"
+												width={30}
+												height={30}
+												className="hidden dark:block rounded-[50%]"
+											/>
+											<div className="font-bold text-[#000] text-[16px] uppercase">
+												IFX EXPO
+											</div>
+										</div>
+										<div className="text-primary">
+											<i className="fa-solid fa-angle-down text-[15px]"></i>
+										</div>
+									</div>
 									<ul className="block lg:flex lg:space-x-12">
 										{menuData.map((menuItem, index) => {
 											const classed =
@@ -129,7 +164,12 @@ const Header = () => {
 													{menuItem.path ? (
 														<Link
 															href={menuItem.path}
-															className={`flex py-2 text-base text-dark group-hover:opacity-70 dark:text-white lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 ${classed}`}
+															className={`flex py-2 text-base lg:text-white text-dark group-hover:opacity-70 lg:mr-0 lg:inline-flex lg:py-6 lg:px-0`}
+															onClick={() =>
+																setNavbarOpen(
+																	false,
+																)
+															}
 														>
 															{menuItem.title}
 														</Link>
@@ -141,7 +181,7 @@ const Header = () => {
 																		index,
 																	)
 																}
-																className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:opacity-70 dark:text-white lg:mr-0 lg:inline-flex lg:py-6 lg:px-0"
+																className="flex cursor-pointer items-center justify-between py-2 text-base text-dark lg:text-white group-hover:opacity-80 lg:mr-0 lg:inline-flex lg:py-6 lg:px-0"
 															>
 																{menuItem.title}
 																<span className="pl-3">
@@ -158,7 +198,7 @@ const Header = () => {
 																</span>
 															</a>
 															<div
-																className={`submenu relative top-full left-0 rounded-md bg-white transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
+																className={`submenu relative top-full left-0 rounded-md transition-[top] duration-300 group-hover:opacity-100 bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
 																	openIndex ===
 																	index
 																		? 'block'
@@ -184,7 +224,7 @@ const Header = () => {
 																			key={
 																				submenuItem.id
 																			}
-																			className="block rounded py-2.5 text-sm text-dark hover:opacity-70 dark:text-white lg:px-3"
+																			className="block rounded p-2.5 text-sm hover:opacity-70 text-white lg:px-3"
 																		>
 																			{
 																				submenuItem.title
@@ -199,6 +239,25 @@ const Header = () => {
 											);
 										})}
 									</ul>
+									<div className="flex lg:hidden flex-col items-center justify-center w-full gap-3 mt-5">
+										<Button
+											variant="outlined"
+											color="error"
+											className="w-full"
+										>
+											Logout
+										</Button>
+										<div className="text-[#000]">
+											Copyright ©{' '}
+											<Link
+												href="/"
+												className="font-bold text-primary"
+											>
+												IFX EXPO
+											</Link>
+											. All rights reserved.
+										</div>
+									</div>
 								</nav>
 							</div>
 							<div className="flex items-center justify-end pr-16 lg:pr-0">

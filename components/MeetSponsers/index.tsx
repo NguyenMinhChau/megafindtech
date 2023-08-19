@@ -25,7 +25,7 @@ const URL_IMAGES = [
 function MeetSponsers() {
 	return (
 		<div
-			className="p-3 rounded-md"
+			className="p-3 rounded-md container"
 			style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
 			data-aos="fade-down"
 		>

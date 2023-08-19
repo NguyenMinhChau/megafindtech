@@ -42,7 +42,7 @@ const URL_IMAGES = [
 function OurExhibitor() {
 	return (
 		<div
-			className="p-3 rounded-md mt-3"
+			className="p-3 rounded-md mt-3 container"
 			style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
 			data-aos="fade-right"
 		>

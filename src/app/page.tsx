@@ -20,7 +20,10 @@ export default function Home() {
 		<div className={`${styles.image_bgc} pb-3`}>
 			<Hero />
 			<DiscoverHome />
-			<div data-aos="flip-left">
+			<div
+				data-aos="flip-left"
+				className="flex justify-center items-center container p-0"
+			>
 				<Image src={Image_Discover_Event} alt="image" />
 			</div>
 			<EventSchedule />
